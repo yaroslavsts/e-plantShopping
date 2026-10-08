@@ -1,0 +1,1 @@
+export default function AboutUs(){return <div className="about"><p>At Paradise Nursery, we help you bring a little more green into everyday life.</p><p>Explore easy-care favorites, fragrant herbs and striking tropical leaves. Our thoughtfully selected houseplants make welcoming homes and meaningful gifts.</p></div>;}
