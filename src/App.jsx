@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectCount } from './CartSlice.jsx';
 import AboutUs from './AboutUs.jsx';
-import ProductList from './ProductList.jsx';
+import ProductList, { ShopNavigation } from './ProductList.jsx';
 import CartItem from './CartItem.jsx';
 import './App.css';
 
 export default function App() {
   const [page, setPage] = useState('home');
-  const count = useSelector(selectCount);
   function navigate(next) {
     setPage(next);
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -28,16 +25,7 @@ export default function App() {
   }
   return (
     <>
-      <header>
-        <button className="brand" onClick={() => navigate('home')}>🌿 Paradise Nursery</button>
-        <nav aria-label="Main navigation">
-          <button onClick={() => navigate('home')}>Home</button>
-          <button aria-current={page === 'plants' ? 'page' : undefined} onClick={() => navigate('plants')}>Plants</button>
-          <button aria-current={page === 'cart' ? 'page' : undefined} aria-label={`Cart, ${count} items`} onClick={() => navigate('cart')}>
-            🛒 Cart <span aria-live="polite">{count}</span>
-          </button>
-        </nav>
-      </header>
+      <ShopNavigation page={page} navigate={navigate} />
       {page === 'plants' ? <ProductList /> : <CartItem onContinue={() => navigate('plants')} />}
     </>
   );

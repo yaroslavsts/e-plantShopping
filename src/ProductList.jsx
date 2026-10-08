@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from './CartSlice.jsx';
+import { addItem, selectCount } from './CartSlice.jsx';
 
 // Three categories, with six distinct plants per category.
 export const categories = [
@@ -183,5 +183,22 @@ export default function ProductList() {
         </section>
       ))}
     </main>
+  );
+}
+
+// Shared by the product listing and shopping cart pages.
+export function ShopNavigation({ page, navigate }) {
+  const count = useSelector(selectCount);
+  return (
+    <header>
+      <button className="brand" onClick={() => navigate('home')}>🌿 Paradise Nursery</button>
+      <nav aria-label="Main navigation">
+        <button onClick={() => navigate('home')}>Home</button>
+        <button aria-current={page === 'plants' ? 'page' : undefined} onClick={() => navigate('plants')}>Plants</button>
+        <button aria-current={page === 'cart' ? 'page' : undefined} aria-label={`Cart, ${count} items`} onClick={() => navigate('cart')}>
+          🛒 Cart <span aria-live="polite">{count}</span>
+        </button>
+      </nav>
+    </header>
   );
 }
